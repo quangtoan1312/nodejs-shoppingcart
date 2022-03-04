@@ -1,0 +1,50 @@
+<%- include('../_layouts/adminheader') %>
+
+    <h2 class="product-title">Sản phẩm</h2>
+    <a href="/admin/products/add-product" class="btn btn-primary">Thêm sản phẩm</a>
+    <br><br>
+
+    <% if(count > 0) { %>
+
+        <table class="table table-striped alignmiddle">
+            <thead>
+                <tr class="home">
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Danh mục</th>
+                    <th>Ảnh sản phẩm</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(function(product){ %>
+                    <tr>
+                        <td>
+                            <%= product.title %>
+                        </td>
+                        <td>
+                            <%= parseFloat(product.prcie).toFixed(0) %>Đ
+                        </td>
+                        <td>
+                            <%= product.category %>
+                        </td>
+                        <td>
+                            <% if (product.image == "") { %>
+                                <img id="noimage" src="/images/noimage.png">
+                                <% } else { %>
+                                    <img id="noimage" src="/product_images/<%= product._id %>/<%= product.image %>">
+                                    <% } %>
+                        </td>
+                        <td><a href="/admin/products/edit-product/<%= product._id %>">Sửa</a></td>
+                        <td><a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>">Xóa</a></td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+
+        <% } else { %>
+            <h3 class="text-center">Không có sản phẩm</h3>
+            <% } %>
+
+                <%- include('../_layouts/adminfooter') %>
